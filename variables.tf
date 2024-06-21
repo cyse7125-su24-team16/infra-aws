@@ -160,3 +160,8 @@ variable "node_group_name" {
   description = "The name of the node group"
   type        = string
 }
+
+variable "cluster_enabled_log_types" {
+  description = "The log types to enable for the EKS cluster"
+  type        = list(string)
+}
