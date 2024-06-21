@@ -12,13 +12,7 @@ module "eks" {
   cluster_endpoint_private_access = true
 
   # Observability
-  cluster_enabled_log_types = [
-    "api",
-    "audit",
-    "authenticator",
-    "controllerManager",
-    "scheduler"
-  ]
+  cluster_enabled_log_types = var.cluster_enabled_log_types
 
   # Encryption
   cluster_encryption_config = {
