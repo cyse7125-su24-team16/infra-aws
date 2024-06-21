@@ -1,0 +1,36 @@
+name: 'Terraform-Format-And-Validate-Workflow'
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  terraform-workflow:
+    name: 'Terraform-Validate'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      run: |
+        terraform init
+        terraform init -upgrade
+
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    - name: Fail if terraform fmt fails
+      if: ${{ steps.setup.outputs.exit-code != 0 }}
+      run: exit 1
+
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Fail if terraform valid fails
+      if: ${{ steps.setup.outputs.exit-code != 0 }}
+      run: exit 1
