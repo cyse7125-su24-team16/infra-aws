@@ -66,4 +66,31 @@ tar -xzf terraform-docs.tar.gz
 chmod +x terraform-docs
 mv terraform-docs /usr/local/bin/terraform-docs
 ```
+# Terraform Command Lines
 
+- Terraform CLI tricks
+```markdown terraform -install-autocomplete``` #Setup tab auto-completion, requires logging back in
+
+### Format and Validate Terraform code
+- ```terraform fmt``` #format code per HCL canonical standard
+- ```terraform validate``` #validate code for syntax
+- ```terraform validate -backend=false``` #validate code skip backend validation
+
+### Initialize your Terraform working directory
+- ```terraform init``` #initialize directory, pull down providers
+- ```terraform init -get-plugins=false``` #initialize directory, do not download plugins
+- ```terraform init -verify-plugins=false``` #initialize directory, do not verify plugins for Hashicorp signature
+
+### Plan, Deploy and Cleanup Infrastructure
+- ```terraform apply --auto-approve``` #apply changes without being prompted to enter “yes”
+- ```terraform destroy --auto-approve``` #destroy/cleanup deployment without being prompted for “yes”
+- ```terraform plan -out plan.out``` #output the deployment plan to plan.out
+- ```terraform apply plan.out``` #use the plan.out plan file to deploy infrastructure
+- ```terraform plan -destroy``` #outputs a destroy plan
+- ```terraform apply -target=aws_instance.my_ec2``` #only apply/deploy changes to the targeted resource
+- ```terraform apply -var my_region_variable=us-east-1``` #pass a variable via command-line while applying a configuration
+- ```terraform apply -lock=true``` #lock the state file so it can’t be modified by any other Terraform apply or modification action(possible only where backend allows locking)
+- ```terraform apply refresh=false``` # do not reconcile state file with real-world resources(helpful with large complex deployments for saving deployment time)
+- ```terraform apply --parallelism=5``` #number of simultaneous resource operations
+- ```terraform refresh``` #reconcile the state in Terraform state file with real-world resources
+- ```terraform providers``` #get information about providers used in current configuration
