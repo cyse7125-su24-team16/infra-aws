@@ -166,3 +166,14 @@ variable "cluster_enabled_log_types" {
   type        = list(string)
 
 }
+
+variable "eks_secrets_encryption_name" {
+  description = "The name of the KMS key used for EKS secrets encryption"
+  type        = string
+}
+
+variable "Ebs_Volume_Key_Name" {
+  description = "The name of the KMS key used for EBS volume encryption"
+  type        = string
+  
+}
