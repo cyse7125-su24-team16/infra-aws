@@ -1,20 +1,20 @@
 # Data Source Configuration for Availability Zones.
 data "aws_availability_zones" "available_zones" {}
 
-# Creating a Virtual Private Cloud (VPC).
-resource "aws_vpc" "VPC" {
-  cidr_block       = var.vpc_cidr_block
-  instance_tenancy = "default"
-
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-
-  tags = {
-    Name        = "${var.env}-${var.vpc_name}"
-    Environment = "${var.env}"
-  }
-
-}
+                  # Creating a Virtual Private Cloud (VPC).
+                  resource "aws_vpc" "VPC" {
+                    cidr_block       = var.vpc_cidr_block
+                    instance_tenancy = "default"
+                  
+                    enable_dns_hostnames = true
+                    enable_dns_support   = true
+                  
+                    tags = {
+                      Name        = "${var.env}-${var.vpc_name}"
+                      Environment = "${var.env}"
+                    }
+                  
+                  }
 
 # Creating Internet Gateway and attaching it to the VPC.
 resource "aws_internet_gateway" "Igw" {
