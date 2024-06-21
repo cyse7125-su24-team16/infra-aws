@@ -8,7 +8,7 @@ resource "aws_kms_key" "eks_secrets_encryption" {
 }
 
 resource "aws_kms_alias" "eks_secrets_encryption_alias" {
-  name          = "alias/EKS-Key"
+  name          = var.eks_secrets_encryption_name
   target_key_id = aws_kms_key.eks_secrets_encryption.key_id
 }
 
@@ -23,6 +23,6 @@ resource "aws_kms_key" "ebs_volume_encryption" {
 }
 
 resource "aws_kms_alias" "ebs_volume_encryption_alias" {
-  name          = "alias/Ebs-Volume-Encryption"
+  name          = var.Ebs_Volume_Key_Name
   target_key_id = aws_kms_key.ebs_volume_encryption.key_id
 }
