@@ -68,18 +68,12 @@ mv terraform-docs /usr/local/bin/terraform-docs
 ```
 # Terraform Command Lines
 
-- Terraform CLI tricks
-```markdown terraform -install-autocomplete``` #Setup tab auto-completion, requires logging back in
-
 ### Format and Validate Terraform code
 - ```terraform fmt``` #format code per HCL canonical standard
 - ```terraform validate``` #validate code for syntax
-- ```terraform validate -backend=false``` #validate code skip backend validation
 
 ### Initialize your Terraform working directory
 - ```terraform init``` #initialize directory, pull down providers
-- ```terraform init -get-plugins=false``` #initialize directory, do not download plugins
-- ```terraform init -verify-plugins=false``` #initialize directory, do not verify plugins for Hashicorp signature
 
 ### Plan, Deploy and Cleanup Infrastructure
 - ```terraform apply --auto-approve``` #apply changes without being prompted to enter “yes”
