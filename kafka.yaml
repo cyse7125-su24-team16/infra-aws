@@ -1,0 +1,100 @@
+provisioning:
+  topics:
+    - name: ${TOPIC_NAME}
+      replicationFactor: ${TOPIC_REPLICATION_FACTOR}
+      partitions: ${TOPIC_PARTITIONS}
+  enabled: ${PROVISIONING_ENABLED}
+  numPartitions: ${NUM_PARTITIONS}
+  replicationFactor: ${REPLICATION_FACTOR}
+
+replicaCount: ${REPLICA_COUNT}
+
+persistence:
+  enabled: ${PERSISTENCE_ENABLED}
+  storageClass: ${PERSISTENCE_STORAGE_CLASS}
+  size: ${PERSISTENCE_SIZE}
+
+logPersistence:
+  enabled: ${LOG_PERSISTENCE_ENABLED}
+  storageClass: ${LOG_PERSISTENCE_STORAGE_CLASS}
+  size: ${LOG_PERSISTENCE_SIZE}
+
+resources:
+  requests:
+    memory: ${RESOURCES_REQUESTS_MEMORY}
+    cpu: ${RESOURCES_REQUESTS_CPU}
+  limits:
+    memory: ${RESOURCES_LIMITS_MEMORY}
+    cpu: ${RESOURCES_LIMITS_CPU}
+
+limits:
+  type: ${LIMITS_TYPE}
+  default:
+    memory: ${DEFAULT_MEMORY}
+    cpu: ${DEFAULT_CPU}
+  defaultRequest:
+    memory: ${DEFAULT_REQUEST_MEMORY}
+    cpu: ${DEFAULT_REQUEST_CPU}
+  max:
+    memory: ${MAX_MEMORY}
+    cpu: ${MAX_CPU}
+
+sasl:
+  client:
+    users:
+      - ${SASL_CLIENT_USER}
+    passwords: ${SASL_CLIENT_PASSWORD}
+
+metrics:
+  kafka:
+    enabled: ${METRICS_KAFKA_ENABLED}
+
+updateStrategy:
+  type: ${UPDATE_STRATEGY_TYPE}
+
+autoScaling:
+  enabled: ${AUTOSCALING_ENABLED}
+  minReplicas: ${AUTOSCALING_MIN_REPLICAS}
+  maxReplicas: ${AUTOSCALING_MAX_REPLICAS}
+  targetCPUUtilizationPercentage: ${AUTOSCALING_TARGET_CPU_UTILIZATION_PERCENTAGE}
+
+hpa:
+  enabled: ${HPA_ENABLED}
+  minReplicas: ${HPA_MIN_REPLICAS}
+  maxReplicas: ${HPA_MAX_REPLICAS}
+  targetCPU: ${HPA_TARGET_CPU}
+
+podDisruptionBudget:
+  enabled: ${POD_DISRUPTION_BUDGET_ENABLED}
+  maxUnavailable: ${POD_DISRUPTION_BUDGET_MAX_UNAVAILABLE}
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: ${POD_ANTI_AFFINITY_KEY}
+              operator: In
+              values:
+                - ${POD_ANTI_AFFINITY_VALUE}
+        topologyKey: ${POD_ANTI_AFFINITY_TOPOLOGY_KEY}
+
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: ${NODE_AFFINITY_KEY}
+              operator: In
+              values:
+                - ${NODE_AFFINITY_VALUE_1}
+                - ${NODE_AFFINITY_VALUE_2}
+                - ${NODE_AFFINITY_VALUE_3}
+
+nodeSelector:
+  ${NODE_SELECTOR_KEY}: ${NODE_SELECTOR_VALUE}
+
+tolerations:
+  - key: ${TOLERATIONS_KEY}
+    operator: ${TOLERATIONS_OPERATOR}
+    effect: ${TOLERATIONS_EFFECT}
+    tolerationSeconds: ${TOLERATIONS_TOLERATION_SECONDS}
