@@ -177,3 +177,82 @@ variable "Ebs_Volume_Key_Name" {
   type        = string
 
 }
+
+
+variable "bitnami_repository_url" {
+  description = "The URL of the repository where the PostgreSQL image is stored"
+  type        = string
+}
+
+variable "kafka_chart_name" {
+  description = "The name of the Helm chart"
+  type        = string
+}
+
+variable "kafka_chart_version" {
+  description = "The version of the Helm chart"
+  type        = string
+}
+
+variable "kafka_namespace" {
+  description = "The namspace in which kafka chart is deployed."
+  type        = string
+}
+
+variable "kafka_release_name" {
+  description = "The name of the Helm release"
+  type        = string
+}
+
+variable "values_file" {
+  description = "The path to the values file for the Helm chart"
+  type        = string
+}
+
+variable "namespaces" {
+  type        = list(string)
+  description = "The namespace values are written here."
+  default     = ["n1,n2,n3"]
+}
+
+variable "postgresql_password" {
+  description = "The password for the PostgreSQL database"
+  type        = string
+}
+
+variable "postgresql_namespace" {
+  type        = string
+  description = "The namespace in which the database is running"
+}
+
+variable "postgresql_release_name" {
+  description = "The name of the Helm release"
+  type        = string
+}
+
+variable "postgresql_chart_name" {
+  description = "The name of the Helm chart"
+  type        = string
+}
+
+variable "postgresql_chart_version" {
+  description = "The version of the Helm chart"
+  type        = string
+}
+
+
+variable "ssh_algorithm" {
+  description = "The algorithm to use for SSH key generation"
+  type        = string
+}
+
+variable "ssh_rsa_bits" {
+  description = "The number of bits to use for RSA key generation"
+  type        = number
+}
+
+variable "ssh_key_name" {
+  description = "The name of the SSH key pair"
+  type        = string
+}
+
