@@ -65,6 +65,8 @@ module "eks" {
     eks_node_group = {
       name = var.node_group_name
 
+      key_name = aws_key_pair.deployer.key_name
+
       # Scaling Configuration  
       min_size     = var.min_size
       max_size     = var.max_size
@@ -100,4 +102,8 @@ module "eks" {
   }
   # Cluster access entry to add the current caller identity as an administrator
   enable_cluster_creator_admin_permissions = true
+}
+
+data "aws_eks_cluster_auth" "cluster_auth" {
+  name = var.cluster_name
 }
