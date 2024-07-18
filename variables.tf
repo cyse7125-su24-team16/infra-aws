@@ -178,48 +178,6 @@ variable "Ebs_Volume_Key_Name" {
 
 }
 
-
-variable "bitnami_repository_url" {
-  description = "The URL of the repository where the PostgreSQL image is stored"
-  type        = string
-}
-
-variable "kafka_chart_name" {
-  description = "The name of the Helm chart"
-  type        = string
-}
-
-variable "kafka_chart_version" {
-  description = "The version of the Helm chart"
-  type        = string
-}
-
-variable "kafka_namespace" {
-  description = "The namspace in which kafka chart is deployed."
-  type        = string
-}
-
-variable "kafka_release_name" {
-  description = "The name of the Helm release"
-  type        = string
-}
-
-variable "values_file" {
-  description = "The path to the values file for the Helm chart"
-  type        = string
-}
-
-variable "namespaces" {
-  type        = list(string)
-  description = "The namespace values are written here."
-  default     = ["n1,n2,n3"]
-}
-
-variable "postgresql_password" {
-  description = "The password for the PostgreSQL database"
-  type        = string
-}
-
 variable "postgresql_namespace" {
   type        = string
   description = "The namespace in which the database is running"
@@ -240,6 +198,103 @@ variable "postgresql_chart_version" {
   type        = string
 }
 
+variable "bitnami_repository_url" {
+  description = "The URL of the repository where the PostgreSQL image is stored"
+  type        = string
+}
+
+variable "kafka_chart_name" {
+  description = "Name of the Kafka Helm chart to deploy"
+  type        = string
+}
+
+variable "kafka_chart_version" {
+  description = "Version of the Kafka Helm chart to use"
+  type        = string
+}
+
+variable "kafka_namespace" {
+  description = "Namespace where Kafka will be deployed"
+  type        = string
+}
+
+variable "kafka_release_name" {
+  description = "Name of the Kafka Helm release"
+  type        = string
+}
+
+variable "chart_path" {
+  description = "Path to the chart"
+  type        = string
+}
+
+variable "kafka_values_file" {
+  description = "Path to the values file for configuring Kafka deployment"
+  type        = string
+}
+
+# variable "bitnami_repository_url" {
+#   description = "URL of the Bitnami Helm chart repository"
+#   type        = string
+#   default     = "https://charts.bitnami.com/bitnami"
+# }
+
+# variable "postgresql_chart_name" {
+#   description = "Name of the PostgreSQL Helm chart"
+#   type        = string
+#   default     = "postgresql-ha"
+# }
+
+# variable "postgresql_chart_version" {
+#   description = "Version of the PostgreSQL Helm chart"
+#   type        = string
+#   default     = "14.2.7"
+# }
+
+variable "namespaces" {
+  description = "The namespaces in which the producer and the conusmer role are getting created."
+  type        = list(string)
+}
+
+variable "Autoscaler_Role_Name" {
+  description = "The name of the IAM role to be used by the cluster autoscaler."
+  type        = string
+}
+
+variable "resource_quota_cpu" {
+  description = "A map defining CPU resource quotas for various namespaces. The map keys are namespace names, and the values are CPU quotas as strings."
+  type        = map(string)
+}
+
+variable "resource_quota_memory" {
+  description = "A map defining memory resource quotas for various namespaces. The map keys are namespace names, and the values are memory quotas as strings."
+  type        = map(string)
+}
+
+variable "limit_range_default_cpu" {
+  description = "A map defining default CPU limits for containers in various namespaces. The map keys are namespace names, and the values are default CPU limits as strings."
+  type        = map(string)
+}
+
+variable "limit_range_default_memory" {
+  description = "A map defining default memory limits for containers in various namespaces. The map keys are namespace names, and the values are default memory limits as strings."
+  type        = map(string)
+}
+
+variable "limit_range_default_request_cpu" {
+  description = "A map defining default CPU requests for containers in various namespaces. The map keys are namespace names, and the values are default CPU requests as strings."
+  type        = map(string)
+}
+
+variable "limit_range_default_request_memory" {
+  description = "A map defining default memory requests for containers in various namespaces. The map keys are namespace names, and the values are default memory requests as strings."
+  type        = map(string)
+}
+
+variable "cluster_eks" {
+  description = "Configuration for the EKS cluster"
+  type        = map(any)
+}
 
 variable "ssh_algorithm" {
   description = "The algorithm to use for SSH key generation"
@@ -256,3 +311,7 @@ variable "ssh_key_name" {
   type        = string
 }
 
+variable "values_file" {
+  description = "The path to the values file for the Helm chart"
+  type        = string
+}
