@@ -32,7 +32,10 @@ module "eks" {
       most_recent = true
     }
     vpc-cni = {
-      most_recent = true
+      most_recent = var.cluster_eks["cluster_addons"]["vpc-cni"]["most_recent"]
+      configuration_values = jsonencode({
+        enableNetworkPolicy = "true"
+      })
     }
     eks-pod-identity-agent = {
       most_recent = true
@@ -42,6 +45,8 @@ module "eks" {
       most_recent              = true
     }
   }
+
+
 
   # Networking
   vpc_id                    = aws_vpc.VPC.id
@@ -106,4 +111,24 @@ module "eks" {
 
 data "aws_eks_cluster_auth" "cluster_auth" {
   name = var.cluster_name
+}
+
+output "eks_cluster_id" {
+  value = module.eks.cluster_id
+}
+
+output "oidc_issuer_url" {
+  value = module.eks.cluster_oidc_issuer_url
+}
+
+output "eks_cluster_name" {
+  value = module.eks.cluster_name
+}
+
+output "eks_cluster_version" {
+  value = module.eks.cluster_version
+}
+
+output "eks_cluster_Arn" {
+  value = module.eks.cluster_arn
 }
