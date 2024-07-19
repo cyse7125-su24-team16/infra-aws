@@ -311,7 +311,92 @@ variable "ssh_key_name" {
   type        = string
 }
 
-variable "values_file" {
-  description = "The path to the values file for the Helm chart"
+# variable "values_file" {
+#   description = "The path to the values file for the Helm chart"
+#   type        = string
+# }
+
+variable "Cluster_Autoscaler_name" {
+  description = "The name of the Autoscaler Helm Release"
+  type        = string
+}
+
+variable "Autoscaler_namespace" {
+  description = "The namespace in which the Autoscaler will be deployed"
+  type        = string
+}
+
+
+variable "Autoscaler_chart_name" {
+  description = "The name of the Autoscaler Helm chart"
+  type        = string
+}
+
+variable "Autoscaler_values_file" {
+  description = "The path to the values file for the Autoscaler deployment"
+  type        = string
+}
+
+variable "Autoscaler_Policy_Name" {
+  description = "The name of the IAM policy to be used by the cluster autoscaler."
+  type        = string
+}
+
+variable "Autoscaler_Policy_Description" {
+  description = "The ARN of the IAM policy to be used by the cluster autoscaler."
+  type        = string
+}
+
+variable "Metrics_server_chart_name" {
+  description = "The name of the metrics server Helm chart"
+  type        = string
+}
+
+variable "Metrics_chart_repository" {
+  description = "The URL of the repository where the metrics server image is stored"
+  type        = string
+}
+
+variable "Metrics_Repo_Chart_Name" {
+  description = "The name of the metrics server Helm chart"
+  type        = string
+}
+
+variable "Metrics_server_chart_version" {
+  description = "The version of the metrics server Helm chart"
+  type        = string
+}
+
+variable "Resource_Quota_Name" {
+  description = "The name of the Resource Quota for workload."
+  type        = string
+}
+
+variable "Limit_Range_Name" {
+  description = "The name of the Limit Range for workload."
+  type        = string
+}
+variable "Metrics_Server_Name" {
+  description = "The name of the Metrics Server Helm Release"
+  type        = string
+}
+
+variable "Metrics_Chart_Name" {
+  description = "The name of the Metrics Server Helm Chart"
+  type        = string
+}
+
+variable "Metrics_Chart_version" {
+  description = "The version of the Metrics Server Helm Chart"
+  type        = string
+}
+
+variable "Metrics_Yaml_File" {
+  description = "The path to the values file for the Metrics Server deployment"
+  type        = string
+}
+
+variable "Postgresql_Yaml_File" {
+  description = "The path to the values file for the Postgresql deployment"
   type        = string
 }
