@@ -1,0 +1,46 @@
+replicas: ${replicas}
+namespace: ${namespace}
+image:
+  repository: ${image.repository}
+  tag: ${image.tag}
+  pullPolicy: ${image.pull_policy}
+
+resources:
+  limits:
+    cpu: ${resources.limits.cpu}
+    memory: ${resources.limits.memory}
+  requests:
+    cpu: ${resources.requests.cpu}
+    memory: ${resources.requests.memory}
+
+deployment:
+  awsRegion: ${deployment.aws_region}
+  AWS_ACCESS_KEY_ID: ${deployment.aws_access_key_id}
+  AWS_SECRET_ACCESS_KEY: ${deployment.aws_secret_access_key}
+
+rbac:
+  serviceAccountName: ${rbac.service_account_name}
+  clusterRoleName: ${rbac.cluster_role_name}
+  roleName: ${rbac.role_name}
+  roleBindingName: ${rbac.role_binding_name}
+  clusterRoleBindingName: ${rbac.cluster_role_binding_name}
+
+autoscalerNamespace: ${autoscaler_namespace}
+
+annotations:
+  eks.amazonaws.com/role-arn: ${annotations.eks_role_arn}
+
+autoscaler:
+  cloudProvider: ${autoscaler.cloud_provider}
+  expander: ${autoscaler.expander}
+  nodeGroupAutoDiscovery: ${autoscaler.node_group_auto_discovery}
+  balanceSimilarNodeGroups: ${autoscaler.balance_similar_node_groups}
+  skipNodesWithLocalStorage: ${autoscaler.skip_nodes_with_local_storage}
+  skipNodesWithSystemPods: ${autoscaler.skip_nodes_with_system_pods}
+
+imagePullSecrets:
+  - name: ${image_pull_secrets.name}
+
+secrets:
+  myregistrykey:
+    dockerconfigjson: ${secrets.myregistrykey.dockerconfigjson}
