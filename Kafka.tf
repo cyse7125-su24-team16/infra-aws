@@ -5,9 +5,7 @@ resource "helm_release" "kafka" {
   version    = var.kafka_chart_version
   namespace  = var.kafka_namespace
 
-  values = [file(var.values_file)]
+  values = [file(var.kafka_values_file)]
 
   depends_on = [module.eks.cluster_name, kubernetes_namespace.example["n2"]]
 }
-
-
