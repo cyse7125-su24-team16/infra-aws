@@ -1,0 +1,44 @@
+auth:
+  postgresPassword: ${auth.postgres_password}
+  username: ${auth.username}
+  password: ${auth.password}
+  database: ${auth.database}
+
+volumePermissions:
+  enabled: ${volume_permissions.enabled}
+
+Primary:
+  livenessProbe:
+    enabled: ${primary.liveness_probe.enabled}
+    initialDelaySeconds: ${primary.liveness_probe.initial_delay_seconds}
+    timeoutSeconds: ${primary.liveness_probe.timeout_seconds}
+    failureThreshold: ${primary.liveness_probe.failure_threshold}
+    successThreshold: ${primary.liveness_probe.success_threshold}
+
+  readinessProbe:
+    enabled: ${primary.readiness_probe.enabled}
+    initialDelaySeconds: ${primary.readiness_probe.initial_delay_seconds}
+    timeoutSeconds: ${primary.readiness_probe.timeout_seconds}
+    failureThreshold: ${primary.readiness_probe.failure_threshold}
+    successThreshold: ${primary.readiness_probe.success_threshold}
+
+primary:
+  networkPolicy:
+    enabled: ${primary.network_policy.enabled}
+    
+readReplicas:
+  networkPolicy:
+    enabled: ${read_replicas.network_policy.enabled}
+
+limits:
+  type: ${limits.type}
+  default:
+    memory: "${limits.default.memory}"
+    cpu: "${limits.default.cpu}"
+  defaultRequest:
+    memory: "${limits.default_request.memory}"
+    cpu: "${limits.default_request.cpu}"
+  max:
+    memory: "${limits.max.memory}"
+    cpu: "${limits.max.cpu}"
+
