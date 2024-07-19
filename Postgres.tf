@@ -5,7 +5,7 @@ resource "helm_release" "postgresql" {
   chart      = var.postgresql_chart_name
   version    = var.postgresql_chart_version
 
-  values = [file("values.yaml")]
+  values = [file(var.Postgresql_Yaml_File)]
 
   depends_on = [
     module.eks,
