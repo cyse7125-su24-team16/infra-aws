@@ -1,0 +1,8 @@
+image:
+  registry: ${image_registry}
+  repository: ${image_repository}
+  tag: ${image_tag}
+  digest: ${image_digest}
+
+apiService:
+  create: ${api_service_create}
