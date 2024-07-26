@@ -9,5 +9,8 @@ resource "helm_release" "postgresql" {
 
   depends_on = [
     module.eks,
+    kubernetes_storage_class.ebs_sc,
   ]
+
+
 }
