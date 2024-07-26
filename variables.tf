@@ -357,11 +357,6 @@ variable "Metrics_chart_repository" {
   type        = string
 }
 
-variable "Metrics_Repo_Chart_Name" {
-  description = "The name of the metrics server Helm chart"
-  type        = string
-}
-
 variable "Metrics_server_chart_version" {
   description = "The version of the metrics server Helm chart"
   type        = string
@@ -398,5 +393,35 @@ variable "Metrics_Yaml_File" {
 
 variable "Postgresql_Yaml_File" {
   description = "The path to the values file for the Postgresql deployment"
+  type        = string
+}
+
+variable "CRD_Name" {
+  description = "The name of the CRD Helm Release"
+  type        = string
+}
+
+variable "CRD_Namespace" {
+  description = "The namespace in which the CRD will get created."
+  type        = string
+}
+
+variable "CRD_chart_path" {
+  description = "The path of the helm chart"
+  type        = string
+}
+
+variable "CR_Name" {
+  description = "The name of the CRD Helm Release"
+  type        = string
+}
+
+variable "CR_chart_path" {
+  description = "The path of the helm chart."
+  type        = string
+}
+
+variable "storage_name" {
+  description = "The name of the storage class"
   type        = string
 }

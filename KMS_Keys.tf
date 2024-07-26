@@ -26,3 +26,17 @@ resource "aws_kms_alias" "ebs_volume_encryption_alias" {
   name          = var.Ebs_Volume_Key_Name
   target_key_id = aws_kms_key.ebs_volume_encryption.key_id
 }
+
+resource "kubernetes_storage_class" "ebs_sc" {
+  metadata {
+    name = var.storage_name
+  }
+  storage_provisioner = "ebs.csi.aws.com"
+  parameters = {
+    type      = "gp2"
+    encrypted = "true"
+    kmsKeyId  = aws_kms_key.ebs_volume_encryption.arn
+  }
+  reclaim_policy      = "Retain"
+  volume_binding_mode = "WaitForFirstConsumer"
+}
