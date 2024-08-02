@@ -311,11 +311,6 @@ variable "ssh_key_name" {
   type        = string
 }
 
-# variable "values_file" {
-#   description = "The path to the values file for the Helm chart"
-#   type        = string
-# }
-
 variable "Cluster_Autoscaler_name" {
   description = "The name of the Autoscaler Helm Release"
   type        = string
@@ -425,3 +420,350 @@ variable "storage_name" {
   description = "The name of the storage class"
   type        = string
 }
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "deployer-key"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
+variable "Fluent_Bit_Role_Name" {
+  description = "The name of the IAM role for Fluent Bit"
+  type        = string
+}
+
+variable "account_id" {
+  description = "AWS account id"
+  type        = string
+}
+
+variable "role_arn" {
+  description = "The ARN of the IAM role for Fluent Bit"
+  type        = string
+}
+
+variable "image_repository" {
+  description = "The image repository for Fluent Bit"
+  type        = string
+}
+
+variable "image_tag" {
+  description = "The image tag for Fluent Bit"
+  type        = string
+}
+
+variable "image_pull_policy" {
+  description = "The image pull policy for Fluent Bit"
+  type        = string
+}
+
+variable "rbac_psp_enabled" {
+  description = "Whether Pod Security Policies are enabled"
+  type        = bool
+}
+
+variable "service_extra_service" {
+  description = "Additional service configuration for Fluent Bit"
+  type        = string
+}
+
+variable "service_parsers_files" {
+  description = "Path to parsers files for Fluent Bit"
+  type        = string
+}
+
+variable "input_enabled" {
+  description = "Whether to enable the input plugin"
+  type        = bool
+}
+
+variable "input_tag" {
+  description = "The tag for Fluent Bit input"
+  type        = string
+}
+
+variable "input_path" {
+  description = "Path to the log files for Fluent Bit input"
+  type        = string
+}
+
+variable "input_db" {
+  description = "Path to the Fluent Bit database"
+  type        = string
+}
+
+variable "input_mem_buf_limit" {
+  description = "Memory buffer limit for Fluent Bit input"
+  type        = string
+}
+
+variable "input_skip_long_lines" {
+  description = "Whether to skip long lines in Fluent Bit input"
+  type        = string
+}
+
+variable "fluent_bit_input_refresh_interval" {
+  description = "Refresh interval for Fluent Bit input"
+  type        = string
+}
+
+variable "fluentbit_cloudwatch_logs_enabled" {
+  description = "Whether to enable CloudWatch Logs output"
+  type        = bool
+}
+
+variable "fluent_bit_cloudwatch_logs_match" {
+  description = "Match pattern for CloudWatch Logs"
+  type        = string
+}
+
+variable "fluent_bit_cloudwatch_logs_log_group_name" {
+  description = "Log group name for CloudWatch Logs"
+  type        = string
+}
+
+variable "cloudwatch_logs_log_stream_prefix" {
+  description = "Prefix for CloudWatch Logs log stream"
+  type        = string
+}
+
+variable "cloudwatch_logs_auto_create_group" {
+  description = "Whether to auto-create CloudWatch Logs log group"
+  type        = bool
+}
+
+variable "service_account_create" {
+  description = "Whether to create a service account"
+  type        = bool
+}
+
+variable "service_account_name" {
+  description = "Name of the service account"
+  type        = string
+}
+
+variable "daemon_set_volumes" {
+  description = "List of volumes for the DaemonSet"
+  type = list(object({
+    name            = string
+    host_path_path  = string
+    config_map_name = string
+  }))
+}
+
+variable "daemon_set_volume_mounts" {
+  description = "List of volume mounts for the DaemonSet"
+  type = list(object({
+    name       = string
+    mount_path = string
+    read_only  = bool
+    sub_path   = string
+  }))
+}
+
+variable "cloud_watch_namespace" {
+  description = "The namespace for AWS Cloud Watch."
+  type        = string
+}
+
+variable "fluent_bit_name" {
+  description = "The name of the Fluent Bit Helm Release"
+  type        = string
+}
+
+variable "fluentbit_repository_url" {
+  description = "The URL of the repository where the Fluent Bit image is stored"
+  type        = string
+}
+
+variable "fluentbit_chart" {
+  description = "The name of the Fluent Bit Helm chart"
+  type        = string
+}
+
+variable "fluent_bit_image_repository" {
+  description = "The image repository for Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_image_tag" {
+  description = "The image tag for Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_image_pull_policy" {
+  description = "The image pull policy for Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_rbac" {
+  description = "Whether RBAC is enabled for Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_service" {
+  description = "The service configuration for Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_parsers" {
+  description = "The parsers configuration for Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_input_enabled" {
+  description = "Whether the input plugin is enabled for Fluent Bit"
+  type        = bool
+}
+
+variable "fluent_bit_input_tag" {
+  description = "The tag for the input plugin in Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_input_path" {
+  description = "The path to the log files for the input plugin in Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_input_db" {
+  description = "The path to the database for the input plugin in Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_input_memBufLimit" {
+  description = "The memory buffer limit for the input plugin in Fluent Bit"
+  type        = string
+}
+
+variable "fluent_bit_input_skipLongLines" {
+  description = "Whether to skip long lines in the input plugin in Fluent Bit"
+  type        = string
+}
+
+variable "Fluent_bit_Policy_name" {
+  description = "The name of the IAM policy for Fluent Bit"
+  type        = string
+}
+
+variable "Fluent_bit_policy_description" {
+  description = "The description of the IAM policy for Fluent Bit"
+  type        = string
+}
+
+variable "EKS_ingress_15017_description" {
+  description = "The description of the ingress rule for port 15017"
+  type        = string
+}
+
+variable "EKS_ingress_15017_protocol" {
+  description = "The protocol for the ingress rule for port 15017"
+  type        = string
+}
+
+variable "EKS_ingress_15017_from_port" {
+  description = "The starting port for the ingress rule for port 15017"
+  type        = number
+}
+
+variable "EKS_ingress_15017_to_port" {
+  description = "The ending port for the ingress rule for port 15017"
+  type        = number
+}
+
+variable "EKS_ingress_15017_type" {
+  description = "The type of the ingress rule for port 15017"
+  type        = string
+}
+
+variable "EKS_ingress_15012_description" {
+  description = "The description of the ingress rule for port 15012"
+  type        = string
+}
+
+variable "EKS_ingress_15012_protocol" {
+  description = "The protocol for the ingress rule for port 15012"
+  type        = string
+}
+
+variable "EKS_ingress_15012_from_port" {
+
+  description = "The starting port for the ingress rule for port 15012"
+  type        = number
+}
+
+variable "EKS_ingress_15012_to_port" {
+  description = "The ending port for the ingress rule for port 15012"
+  type        = number
+
+}
+
+variable "EKS_ingress_15012_type" {
+  description = "The type of the ingress rule for port 15012"
+  type        = string
+}
+
+variable "istio_namespace" {
+
+  description = "The namespace in which Istio is deployed"
+  type        = string
+}
+
+variable "isttio_base_name" {
+  description = "The name of the Istio base Helm release"
+  type        = string
+
+}
+
+variable "istio_repository" {
+  description = "The URL of the repository where the Istio image is stored"
+  type        = string
+
+}
+
+variable "istio_b_chart" {
+  description = "The name of the Istio base Helm chart"
+  type        = string
+
+}
+
+variable "istio_d_name" {
+  description = "The name of the Istio deployment Helm release"
+  type        = string
+}
+
+variable "istio_ingress_name" {
+  description = "The name of the Istio ingress Helm release"
+  type        = string
+
+}
+
+variable "Istio_ingress_chart" {
+  description = "The name of the Istio ingress Helm chart"
+  type        = string
+
+}
+
+variable "prometheus_name" {
+  description = "The name of the Prometheus Helm release"
+  type        = string
+
+}
+
+variable "prometheus_namespace" {
+  description = "The namespace in which Prometheus is deployed"
+  type        = string
+
+}
+
+variable "prometheus_repository" {
+  description = "The URL of the repository where the Prometheus image is stored"
+  type        = string
+
+}
+variable "prometheus_chart" {
+  description = "The name of the Prometheus Helm chart"
+  type        = string
+
+}
+
+

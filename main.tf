@@ -99,6 +99,22 @@ resource "aws_security_group" "EKS_Security_Group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # New ingress rule for port 15017
+  ingress {
+    from_port   = 15017
+    to_port     = 15017
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # New ingress rule for port 15012
+  ingress {
+    from_port   = 15012
+    to_port     = 15012
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port   = var.egress_port
     to_port     = var.egress_port
