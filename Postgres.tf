@@ -7,6 +7,19 @@ resource "helm_release" "postgresql" {
 
   values = [file(var.Postgresql_Yaml_File)]
 
+  # set {
+  #   name  = "storageClass"
+  #   value = "ebs-sc"
+  # }
+  # set {
+  #   name  = "persistence.enabled"
+  #   value = "true"
+  # }
+  # set {
+  #   name  = "persistence.size"
+  #   value = "4Gi"
+  # }
+
   depends_on = [
     module.eks,
     kubernetes_storage_class.ebs_sc,
