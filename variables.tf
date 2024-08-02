@@ -421,10 +421,10 @@ variable "storage_name" {
   type        = string
 }
 
-resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
-  public_key = file("~/.ssh/id_rsa.pub")
-}
+# resource "aws_key_pair" "deployer" {
+#   key_name   = "deployer-key"
+#   public_key = file("~/.ssh/id_rsa.pub")
+# }
 
 variable "Fluent_Bit_Role_Name" {
   description = "The name of the IAM role for Fluent Bit"
