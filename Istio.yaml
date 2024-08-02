@@ -1,0 +1,40 @@
+# values.yaml
+global:
+  proxy:
+    resources:
+      limits:
+        cpu: ${proxy_cpu_limit}
+        memory: ${proxy_memory_limit}
+      requests:
+        cpu: ${proxy_cpu_request}
+        memory: ${proxy_memory_request}
+  defaultPodDisruptionBudget:
+    enabled: ${defaultPodDisruptionBudget_enabled}
+pilot:
+  autoscaleEnabled: ${pilot_autoscaleEnabled}
+  autoscaleMin: ${pilot_autoscaleMin}
+  autoscaleMax: ${pilot_autoscaleMax}
+  replicaCount: ${pilot_replicaCount}
+  resources:
+    requests:
+      cpu: ${pilot_cpu_request}
+      memory: ${pilot_memory_request}
+    limits:
+      cpu: ${pilot_cpu_limit}
+      memory: ${pilot_memory_limit}
+gateways:
+  istio-ingressgateway:
+    autoscaleEnabled: ${ingressgateway_autoscaleEnabled}
+    autoscaleMin: ${ingressgateway_autoscaleMin}
+    autoscaleMax: ${ingressgateway_autoscaleMax}
+    serviceAnnotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: ${ingressgateway_lb_type}
+      service.beta.kubernetes.io/aws-load-balancer-scheme: ${ingressgateway_lb_scheme}
+      service.beta.kubernetes.io/aws-load-balancer-attributes: ${ingressgateway_lb_attributes}
+    resources:
+      limits:
+        cpu: ${ingressgateway_cpu_limit}
+        memory: ${ingressgateway_memory_limit}
+      requests:
+        cpu: ${ingressgateway_cpu_request}
+        memory: ${ingressgateway_memory_request}

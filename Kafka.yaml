@@ -1,108 +1,121 @@
+# values.yaml
 provisioning:
   topics:
-    - name: '${provisioning.topic_name}'
-      replicationFactor: ${provisioning.replication_factor}
-      partitions: ${provisioning.partitions}
-  enabled: ${provisioning.enabled}
-  numPartitions: ${provisioning.num_partitions}
-  replicationFactor: ${provisioning.replication_factor}
+    - name: ${topics_name}
+      replicationFactor: ${topics_replicationFactor}
+      partitions: ${topics_partitions}
+  enabled: ${provisioning_enabled}
+  numPartitions: ${provisioning_numPartitions}
+  replicationFactor: ${provisioning_replicationFactor}
 
-replicaCount: ${replica_count}
+replicaCount: ${replicaCount}
 
 persistence:
-  enabled: ${persistence.enabled}
-  storageClass: "${persistence.storage_class}"
-  size: "${persistence.size}"
+  enabled: ${persistence_enabled}
+  storageClass: ${persistence_storageClass}
+  size: ${persistence_size}
 
 logPersistence:
-  enabled: ${log_persistence.enabled}
-  storageClass: "${log_persistence.storage_class}"
-  size: "${log_persistence.size}"
+  enabled: ${logPersistence_enabled}
+  storageClass: ${logPersistence_storageClass}
+  size: ${logPersistence_size}
 
 resources:
   requests:
-    memory: "${resources.requests.memory}"
-    cpu: "${resources.requests.cpu}"
+    memory: ${resources_requests_memory}
+    cpu: ${resources_requests_cpu}
   limits:
-    memory: "${resources.limits.memory}"
-    cpu: "${resources.limits.cpu}"
+    memory: ${resources_limits_memory}
+    cpu: ${resources_limits_cpu}
 
 metrics:
   kafka:
-    enabled: ${metrics.kafka.enabled}
+    enabled: ${metrics_kafka_enabled}
 
 updateStrategy:
-  type: ${update_strategy.type}
+  type: ${updateStrategy_type}
   rollingUpdate:
-    maxUnavailable: ${update_strategy.rolling_update.max_unavailable}
-  minReadySeconds: ${update_strategy.min_ready_seconds}
-  progressDeadlineSeconds: ${update_strategy.progress_deadline_seconds}
+    maxUnavailable: ${updateStrategy_rollingUpdate_maxUnavailable}
+  minReadySeconds: ${updateStrategy_minReadySeconds}
+  progressDeadlineSeconds: ${updateStrategy_progressDeadlineSeconds}
 
 sasl:
   client:
     users:
-      - ${sasl.client.users[0]}
-    passwords: "${sasl.client.passwords}"
+      - ${sasl_client_users}
+    passwords: ${sasl_client_passwords}
 
 limits:
-  type: ${limits.type}
+  type: ${limits_type}
   default:
-    memory: "${limits.default.memory}"
-    cpu: "${limits.default.cpu}"
+    memory: ${limits_default_memory}
+    cpu: ${limits_default_cpu}
   defaultRequest:
-    memory: "${limits.default_request.memory}"
-    cpu: "${limits.default_request.cpu}"
+    memory: ${limits_defaultRequest_memory}
+    cpu: ${limits_defaultRequest_cpu}
   max:
-    memory: "${limits.max.memory}"
-    cpu: "${limits.max.cpu}"
+    memory: ${limits_max_memory}
+    cpu: ${limits_max_cpu}
 
 autoScaling:
-  enabled: ${auto_scaling.enabled}
-  minReplicas: ${auto_scaling.min_replicas}
-  maxReplicas: ${auto_scaling.max_replicas}
-  targetCPUUtilizationPercentage: ${auto_scaling.target_cpu_utilization_percentage}
+  enabled: ${autoScaling_enabled}
+  minReplicas: ${autoScaling_minReplicas}
+  maxReplicas: ${autoScaling_maxReplicas}
+  targetCPUUtilizationPercentage: ${autoScaling_targetCPUUtilizationPercentage}
 
-hpa:   
-  enabled: ${hpa.enabled}
-  minReplicas: ${hpa.min_replicas}
-  maxReplicas: ${hpa.max_replicas}
-  targetCPU: ${hpa.target_cpu} 
+hpa:
+  enabled: ${hpa_enabled}
+  minReplicas: ${hpa_minReplicas}
+  maxReplicas: ${hpa_maxReplicas}
+  targetCPU: ${hpa_targetCPU}
 
 podDisruptionBudget:
-  enabled: ${pod_disruption_budget.enabled}
-  maxUnavailable: ${pod_disruption_budget.max_unavailable}
+  enabled: ${podDisruptionBudget_enabled}
+  maxUnavailable: ${podDisruptionBudget_maxUnavailable}
 
 affinity:
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
           matchExpressions:
-            - key: app.kubernetes.io/name
-              operator: In
+            - key: ${affinity_podAntiAffinity_requiredDuringSchedulingIgnoredDuringExecution_labelSelector_matchExpressions_key}
+              operator: ${affinity_podAntiAffinity_requiredDuringSchedulingIgnoredDuringExecution_labelSelector_matchExpressions_operator}
               values:
-                - ${affinity.pod_anti_affinity.required_during_scheduling_ignored_during_execution[0].label_selector.match_expressions[0].values[0]}
-        topologyKey: "${affinity.pod_anti_affinity.required_during_scheduling_ignored_during_execution[0].topology_key]}"
+                - ${affinity_podAntiAffinity_requiredDuringSchedulingIgnoredDuringExecution_labelSelector_matchExpressions_values}
+        topologyKey: ${affinity_podAntiAffinity_requiredDuringSchedulingIgnoredDuringExecution_topologyKey}
 
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: "${affinity.node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms[0].match_expressions[0].key]}"
-          operator: In
+        - key: ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_key}
+          operator: ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_operator}
           values:
-          - ${affinity.node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms[0].match_expressions[0].values[0]}
-          - ${affinity.node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms[0].match_expressions[0].values[1]}
-          - ${affinity.node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms[0].match_expressions[0].values[2]}
+          - ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_values[0]}
+          - ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_values[1]}
+          - ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_values[2]}
 
 nodeSelector:
-  "beta.kubernetes.io/os": "${node_selector.beta_kubernetes_io_os}"
+  "beta.kubernetes.io/os": ${nodeSelector_beta_kubernetes_io_os}
 
 tolerations:
-  - key: "${tolerations[0].key}"
-    operator: "${tolerations[0].operator}"
-    effect: "${tolerations[0].effect}"
-    tolerationSeconds: ${tolerations[0].toleration_seconds}
-  - key: "${tolerations[1].key}"
-    operator: "${tolerations[1].operator}"
-    effect: "${tolerations[1].effect}"
-    tolerationSeconds: ${tolerations[1].toleration_seconds}
+  - key: ${tolerations_0_key}
+    operator: ${tolerations_0_operator}
+    effect: ${tolerations_0_effect}
+    tolerationSeconds: ${tolerations_0_tolerationSeconds}
+  - key: ${tolerations_1_key}
+    operator: ${tolerations_1_operator}
+    effect: ${tolerations_1_effect}
+    tolerationSeconds: ${tolerations_1_tolerationSeconds}
+
+metrics:
+  jmx:
+    enabled: ${metrics_jmx_enabled}
+    kafkaJmxPort: ${metrics_jmx_kafkaJmxPort}
+  service:
+    ports:
+      metrics: ${metrics_service_ports_metrics}
+    annotations:
+      prometheus.io/scrape: ${metrics_service_annotations_prometheus_io_scrape}
+      prometheus.io/port: ${metrics_service_annotations_prometheus_io_port}
+      prometheus.io/path: ${metrics_service_annotations_prometheus_io_path}
