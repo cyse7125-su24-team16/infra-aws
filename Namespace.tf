@@ -7,7 +7,7 @@ resource "kubernetes_namespace" "example" {
       {
         "istio-injection" = "enabled"
       },
-      each.value == "n2" ? { "name" = "n2" } : {} 
+      each.value == "n2" ? { "name" = "n2" } : {}
     )
   }
 
