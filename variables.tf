@@ -782,17 +782,17 @@ variable "cert_manager_role_name" {
 }
 
 variable "cert_manager_assume_role_name" {
-   description = "cert manager role description"
-    type        = string
-  
+  description = "cert manager role description"
+  type        = string
+
 }
 
 variable "fluent_bit_service_account_name" {
   description = "fluent_bit sa description"
-    type        = string
+  type        = string
 }
 
 variable "fluent_bit_automount_secret" {
   description = "fluent_bit_automount secret"
-    type        = string
+  type        = string
 }
