@@ -1,159 +1,169 @@
-fullnameOverride: ${fullnameOverride}
+fullnameOverride: ${prometheus_fullnameOverride}
  
 defaultRules:
-  create: ${defaultRules.create}
+  create: ${default_rules_create}
   rules:
-    alertmanager: ${defaultRules.rules.alertmanager}
-    etcd: ${defaultRules.rules.etcd}
-    configReloaders: ${defaultRules.rules.configReloaders}
-    general: ${defaultRules.rules.general}
-    k8s: ${defaultRules.rules.k8s}
-    k8sContainerCpuUsageSecondsTotal: ${defaultRules.rules.k8sContainerCpuUsageSecondsTotal}
-    k8sContainerMemoryCache: ${defaultRules.rules.k8sContainerMemoryCache}
-    k8sContainerMemoryRss: ${defaultRules.rules.k8sContainerMemoryRss}
-    k8sContainerMemorySwap: ${defaultRules.rules.k8sContainerMemorySwap}
-    k8sContainerResource: ${defaultRules.rules.k8sContainerResource}
-    k8sContainerMemoryWorkingSetBytes: ${defaultRules.rules.k8sContainerMemoryWorkingSetBytes}
-    k8sPodOwner: ${defaultRules.rules.k8sPodOwner}
-    kubeApiserverAvailability: ${defaultRules.rules.kubeApiserverAvailability}
-    kubeApiserverBurnrate: ${defaultRules.rules.kubeApiserverBurnrate}
-    kubeApiserverHistogram: ${defaultRules.rules.kubeApiserverHistogram}
-    kubeApiserverSlos: ${defaultRules.rules.kubeApiserverSlos}
-    kubeControllerManager: ${defaultRules.rules.kubeControllerManager}
-    kubelet: ${defaultRules.rules.kubelet}
-    kubeProxy: ${defaultRules.rules.kubeProxy}
-    kubePrometheusGeneral: ${defaultRules.rules.kubePrometheusGeneral}
-    kubePrometheusNodeRecording: ${defaultRules.rules.kubePrometheusNodeRecording}
-    kubernetesApps: ${defaultRules.rules.kubernetesApps}
-    kubernetesResources: ${defaultRules.rules.kubernetesResources}
-    kubernetesStorage: ${defaultRules.rules.kubernetesStorage}
-    kubernetesSystem: ${defaultRules.rules.kubernetesSystem}
-    kubeSchedulerAlerting: ${defaultRules.rules.kubeSchedulerAlerting}
-    kubeSchedulerRecording: ${defaultRules.rules.kubeSchedulerRecording}
-    kubeStateMetrics: ${defaultRules.rules.kubeStateMetrics}
-    network: ${defaultRules.rules.network}
-    node: ${defaultRules.rules.node}
-    nodeExporterAlerting: ${defaultRules.rules.nodeExporterAlerting}
-    nodeExporterRecording: ${defaultRules.rules.nodeExporterRecording}
-    prometheus: ${defaultRules.rules.prometheus}
-    prometheusOperator: ${defaultRules.rules.prometheusOperator}
-    windows: ${defaultRules.rules.windows}
+    alertmanager: ${alertmanager_rule_enabled}
+    etcd: ${etcd_rule_enabled}
+    configReloaders: ${config_reloaders_enabled}
+    general: ${general_rules_enabled}
+    k8s: ${k8s_rules_enabled}
+    k8sContainerCpuUsageSecondsTotal: ${k8s_container_cpu_usage_enabled}
+    k8sContainerMemoryCache: ${k8s_container_memory_cache_enabled}
+    k8sContainerMemoryRss: ${k8s_container_memory_rss_enabled}
+    k8sContainerMemorySwap: ${k8s_container_memory_swap_enabled}
+    k8sContainerResource: ${k8s_container_resource_enabled}
+    k8sContainerMemoryWorkingSetBytes: ${k8s_container_memory_workingset_bytes_enabled}
+    k8sPodOwner: ${k8s_pod_owner_enabled}
+    kubeApiserverAvailability: ${kube_apiserver_availability_enabled}
+    kubeApiserverBurnrate: ${kube_apiserver_burnrate_enabled}
+    kubeApiserverHistogram: ${kube_apiserver_histogram_enabled}
+    kubeApiserverSlos: ${kube_apiserver_slos_enabled}
+    kubeControllerManager: ${kube_controller_manager_enabled}
+    kubelet: ${kubelet_enabled}
+    kubeProxy: ${kube_proxy_enabled}
+    kubePrometheusGeneral: ${kube_prometheus_general_enabled}
+    kubePrometheusNodeRecording: ${kube_prometheus_node_recording_enabled}
+    kubernetesApps: ${kubernetes_apps_enabled}
+    kubernetesResources: ${kubernetes_resources_enabled}
+    kubernetesStorage: ${kubernetes_storage_enabled}
+    kubernetesSystem: ${kubernetes_system_enabled}
+    kubeSchedulerAlerting: ${kube_scheduler_alerting_enabled}
+    kubeSchedulerRecording: ${kube_scheduler_recording_enabled}
+    kubeStateMetrics: ${kube_state_metrics_enabled}
+    network: ${network_rules_enabled}
+    node: ${node_rules_enabled}
+    nodeExporterAlerting: ${node_exporter_alerting_enabled}
+    nodeExporterRecording: ${node_exporter_recording_enabled}
+    prometheus: ${prometheus_rules_enabled}
+    prometheusOperator: ${prometheus_operator_enabled}
+    windows: ${windows_rules_enabled}
  
 alertmanager:
-  fullnameOverride: ${alertmanager.fullnameOverride}
-  enabled: ${alertmanager.enabled}
+  fullnameOverride: ${alertmanager_fullnameOverride}
+  enabled: ${alertmanager_enabled}
   ingress:
-    enabled: ${alertmanager.ingress.enabled}
+    enabled: ${alertmanager_ingress_enabled}
  
 grafana:
-  enabled: ${grafana.enabled}
-  fullnameOverride: ${grafana.fullnameOverride}
-  forceDeployDatasources: ${grafana.forceDeployDatasources}
-  forceDeployDashboards: ${grafana.forceDeployDashboards}
-  defaultDashboardsEnabled: ${grafana.defaultDashboardsEnabled}
-  defaultDashboardsTimezone: ${grafana.defaultDashboardsTimezone}
-  adminPassword: ${grafana.adminPassword}
+  enabled: ${grafana_enabled}
+  fullnameOverride: ${grafana_fullnameOverride}
+  forceDeployDatasources: ${grafana_force_deploy_datasources}
+  forceDeployDashboards: ${grafana_force_deploy_dashboards}
+  defaultDashboardsEnabled: ${grafana_default_dashboards_enabled}
+  defaultDashboardsTimezone: ${grafana_default_dashboards_timezone}
+  adminPassword: ${grafana_admin_password}
   persistence:
-    enabled: ${grafana.persistence.enabled}
-    size: ${grafana.persistence.size}
+    enabled: ${grafana_persistence_enabled}
+    size: ${grafana_persistence_size}
   resources:
     requests:
-      memory: ${grafana.resources.requests.memory}
-      cpu: ${grafana.resources.requests.cpu}
+      memory: "${grafana_memory_request}"
+      cpu: "${grafana_cpu_request}"
     limits:
-      memory: ${grafana.resources.limits.memory}
-      cpu: ${grafana.resources.limits.cpu}
+      memory: "${grafana_memory_limit}"
+      cpu: "${grafana_cpu_limit}"
+  serviceAccount:
+    create: ${grafana_service_account_create}
+    name: ${grafana_service_account_name}
+    automountServiceAccountToken: ${grafana_automount_service_account_token}
+  rbac:
+    create: ${grafana_rbac_create}
   dashboardProviders:
     dashboardproviders.yaml:
-      apiVersion: ${grafana.dashboardProviders.dashboardproviders.yaml.apiVersion}
+      apiVersion: 1
       providers:
-        - name: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[0].name}
-          orgId: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[0].orgId}
-          folder: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[0].folder}
-          type: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[0].type}
-          disableDeletion: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[0].disableDeletion}
-          editable: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[0].editable}
+        - name: "${kafka_provider_name}"
+          orgId: ${kafka_org_id}
+          folder: "${kafka_folder}"
+          type: ${kafka_type}
+          disableDeletion: ${kafka_disable_deletion}
+          editable: ${kafka_editable}
           options:
-            path: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[0].options.path}
-        - name: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[1].name}
-          orgId: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[1].orgId}
-          folder: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[1].folder}
-          type: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[1].type}
-          disableDeletion: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[1].disableDeletion}
-          editable: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[1].editable}
+            path: ${kafka_dashboard_path}
+        - name: "${postgresql_provider_name}"
+          orgId: ${postgresql_org_id}
+          folder: "${postgresql_folder}"
+          type: ${postgresql_type}
+          disableDeletion: ${postgresql_disable_deletion}
+          editable: ${postgresql_editable}
           options:
-            path: ${grafana.dashboardProviders.dashboardproviders.yaml.providers[1].options.path}
+            path: ${postgresql_dashboard_path}
   dashboards:
     kafka:
       kafka-dash:
-        gnetId: ${grafana.dashboards.kafka.kafka-dash.gnetId}
-        revision: ${grafana.dashboards.kafka.kafka-dash.revision}
-        datasource: ${grafana.dashboards.kafka.kafka-dash.datasource}
+        gnetId: ${kafka_gnet_id}
+        revision: ${kafka_revision}
+        datasource: ${kafka_datasource}
     postgresql:
       postgresql-dash:
-        gnetId: ${grafana.dashboards.postgresql.postgresql-dash.gnetId}
-        revision: ${grafana.dashboards.postgresql.postgresql-dash.revision}
-        datasource: ${grafana.dashboards.postgresql.postgresql-dash.datasource}
+        gnetId: ${postgresql_gnet_id}
+        revision: ${postgresql_revision}
+        datasource: ${postgresql_datasource}
   service:
-    portName: ${grafana.service.portName}
-    type: ${grafana.service.type}
+    portName: ${grafana_port_name}
+    type: ${grafana_service_type}
  
 kubeApiServer:
-  enabled: ${kubeApiServer.enabled}
+  enabled: ${kube_api_server_enabled}
  
 coreDns:
-  enabled: ${coreDns.enabled}
+  enabled: ${core_dns_enabled}
  
 kubeDns:
-  enabled: ${kubeDns.enabled}
+  enabled: ${kube_dns_enabled}
  
 kubeEtcd:
-  enabled: ${kubeEtcd.enabled}
+  enabled: ${kube_etcd_enabled}
  
 kubeStateMetrics:
-  enabled: ${kubeStateMetrics.enabled}
+  enabled: ${kube_state_metrics_enabled}
  
 prometheus-node-exporter:
-  namespaceOverride: ${prometheus-node-exporter.namespaceOverride}
+  namespaceOverride: ${prometheus_node_exporter_namespace_override}
   podLabels:
-    jobLabel: ${prometheus-node-exporter.podLabels.jobLabel}
-  releaseLabel: ${prometheus-node-exporter.releaseLabel}
+    jobLabel: ${prometheus_node_exporter_job_label}
+  releaseLabel: ${prometheus_node_exporter_release_label}
   extraArgs:
-    - --collector.filesystem.mount-points-exclude=${prometheus-node-exporter.extraArgs[0]}
-    - --collector.filesystem.fs-types-exclude=${prometheus-node-exporter.extraArgs[1]}
+    - ${prometheus_node_exporter_arg_1}
+    - ${prometheus_node_exporter_arg_2}
   service:
-    portName: ${prometheus-node-exporter.service.portName}
+    portName: ${prometheus_node_exporter_port_name}
   prometheus:
     monitor:
-      enabled: ${prometheus-node-exporter.prometheus.monitor.enabled}
+      enabled: ${prometheus_node_exporter_monitor_enabled}
  
 prometheus:
-  enabled: ${prometheus.enabled}
+  enabled: ${prometheus_enabled}
   prometheusSpec:
     additionalScrapeConfigs:
-      - job_name: ${prometheus.prometheusSpec.additionalScrapeConfigs[0].job_name}
+      - job_name: ${postgresql_job_name}
         static_configs:
-          - targets: ${prometheus.prometheusSpec.additionalScrapeConfigs[0].static_configs[0].targets}
-      - job_name: ${prometheus.prometheusSpec.additionalScrapeConfigs[1].job_name}
-        scrape_interval: ${prometheus.prometheusSpec.additionalScrapeConfigs[1].scrape_interval}
-        metrics_path: ${prometheus.prometheusSpec.additionalScrapeConfigs[1].metrics_path}
-        scrape_timeout: ${prometheus.prometheusSpec.additionalScrapeConfigs[1].scrape_timeout}
+          - targets: ['${postgresql_target}']
+      - job_name: ${kafka_job_name}
+        scrape_interval: ${kafka_scrape_interval}
+        metrics_path: ${kafka_metrics_path}
+        scrape_timeout: ${kafka_scrape_timeout}
         static_configs:
-          - targets: ${prometheus.prometheusSpec.additionalScrapeConfigs[1].static_configs[0].targets}
+          - targets: ['${kafka_target}']
  
   service:
-    port: ${prometheus.service.port}
-    targetPort: ${prometheus.service.targetPort}
-    externalIPs: ${prometheus.service.externalIPs}
-    nodePort: ${prometheus.service.nodePort}
-    loadBalancerIP: ${prometheus.service.loadBalancerIP}
-    loadBalancerSourceRanges: ${prometheus.service.loadBalancerSourceRanges}
-    externalTrafficPolicy: ${prometheus.service.externalTrafficPolicy}
-    type: ${prometheus.service.type}
+    port: ${prometheus_service_port}
+    targetPort: ${prometheus_service_target_port}
+    externalIPs: ${prometheus_service_external_ips}
+    nodePort: ${prometheus_service_node_port}
+    loadBalancerIP: ${prometheus_service_load_balancer_ip}
+    loadBalancerSourceRanges: ${prometheus_service_load_balancer_source_ranges}
+    externalTrafficPolicy: ${prometheus_service_external_traffic_policy}
+    type: ${prometheus_service_type}
  
   serviceMonitor:
-    enabled: ${prometheus.serviceMonitor.enabled}
+    enabled: ${prometheus_service_monitor_enabled}
+ 
+  serviceAccount:
+    create: ${prometheus_service_account_create}
+    name: ${prometheus_service_account_name}
+    automountServiceAccountToken: ${prometheus_service_account_automount_token}
  
 pushgateway:
-  enabled: ${pushgateway.enabled}
-
+  enabled: ${pushgateway_enabled}

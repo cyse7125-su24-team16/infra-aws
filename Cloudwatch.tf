@@ -1,6 +1,9 @@
 resource "kubernetes_namespace" "amazon_cloudwatch" {
   metadata {
     name = var.cloud_watch_namespace
+    labels = {
+      "istio-injection" = "enabled"
+    }
   }
 }
 
@@ -121,7 +124,12 @@ resource "helm_release" "aws_for_fluent_bit" {
 
   set {
     name  = "serviceAccount.name"
-    value = "fluent-bit"
+    value = var.fluent_bit_service_account_name
+  }
+
+  set {
+    name  = "serviceAccount.automountServiceAccountToken"
+    value = var.fluent_bit_automount_secret
   }
   set {
     name  = "daemonSet.volumes[0].name"
@@ -182,7 +190,7 @@ resource "helm_release" "aws_for_fluent_bit" {
 
   set {
     name  = "extraOutputs"
-    value = "[OUTPUT]\n    Name cloudwatch_logs\n    Match *\n    region us-east-2\n    log_group_name /aws/eks/my-cluster/fluent-bit\n    log_stream_prefix from-fluent-bit-\n    auto_create_group true"
+    value = "[OUTPUT]\n    Name cloudwatch_logs\n    Match *\n    region us-east-2\n    log_group_name /aws/eks/my-cluster/fluent-bit\n    log_stream_prefix from-fluent-bit-\n    auto_create_group true\n    Format json"
   }
 }
 
@@ -237,7 +245,84 @@ resource "aws_iam_role" "fluent_bit" {
   })
 }
 
+# Define the Role
+# Define the Role
+resource "kubernetes_role" "fluent_bit_role" {
+  metadata {
+    name      = "fluent-bit-role"
+    namespace = var.cloud_watch_namespace
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods", "pods/log"]
+    verbs      = ["get", "list", "watch"]
+  }
+
+  rule {
+    api_groups = ["apps"]
+    resources  = ["deployments", "deployments/scale"]
+    verbs      = ["get", "list", "watch"]
+  }
+
+  rule {
+    api_groups = ["extensions"]
+    resources  = ["deployments"]
+    verbs      = ["get", "list", "watch"]
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["services"]
+    verbs      = ["get", "list", "watch"]
+  }
+}
+
+# Define the RoleBinding
+resource "kubernetes_role_binding" "fluent_bit_role_binding" {
+  metadata {
+    name      = "fluent-bit-role-binding"
+    namespace = var.cloud_watch_namespace
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = "fluent-bit-role" # Directly use the role name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = "fluent-bit"
+    namespace = var.cloud_watch_namespace
+  }
+}
+
+resource "kubernetes_horizontal_pod_autoscaler" "fluent_bit_hpa" {
+  metadata {
+    name      = "fluent-bit-hpa"
+    namespace = var.cloud_watch_namespace
+  }
+
+  spec {
+    scale_target_ref {
+      api_version = "apps/v1"
+      kind        = "DaemonSet"
+      name        = "fluent-bit"
+    }
+
+    min_replicas = 1
+    max_replicas = 5
+
+    target_cpu_utilization_percentage = 75
+
+
+  }
+}
+
 resource "aws_iam_role_policy_attachment" "fluent_bit_cloudwatch" {
   policy_arn = aws_iam_policy.fluent_bit_cloudwatch_policy.arn
   role       = aws_iam_role.fluent_bit.name
 }
+
+

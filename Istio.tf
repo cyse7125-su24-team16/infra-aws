@@ -3,7 +3,6 @@ resource "kubernetes_namespace" "istio_system" {
     name = var.istio_namespace
   }
 }
-
 resource "helm_release" "istio_base_chart" {
   name             = var.isttio_base_name
   namespace        = var.istio_namespace
@@ -33,8 +32,18 @@ resource "helm_release" "istiod_chart" {
   force_update     = false
   wait             = true
 
+  set {
+    name  = "telemetry.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "meshConfig.ingressService"
+    value = "gateway"
+  }
+
   values = [
-    file("Istio.yaml")
+    file("LIstio.yaml")
   ]
 
   depends_on = [
@@ -53,7 +62,7 @@ resource "helm_release" "istio_gateway_chart" {
   wait             = false
 
   values = [
-    file("Istio.yaml")
+    file("LIstio.yaml")
   ]
 
   depends_on = [
@@ -61,7 +70,6 @@ resource "helm_release" "istio_gateway_chart" {
     helm_release.istiod_chart
   ]
 }
-
 
 resource "null_resource" "istio_addons" {
   provisioner "local-exec" {

@@ -1,44 +1,60 @@
 auth:
-  postgresPassword: ${auth.postgres_password}
-  username: ${auth.username}
-  password: ${auth.password}
-  database: ${auth.database}
-
+  postgresPassword: ${postgres_password}
+  username: ${postgres_username}
+  password: ${postgres_password}
+  database: ${postgres_database}
 volumePermissions:
-  enabled: ${volume_permissions.enabled}
-
+  enabled: ${volume_permissions_enabled}
 Primary:
   livenessProbe:
-    enabled: ${primary.liveness_probe.enabled}
-    initialDelaySeconds: ${primary.liveness_probe.initial_delay_seconds}
-    timeoutSeconds: ${primary.liveness_probe.timeout_seconds}
-    failureThreshold: ${primary.liveness_probe.failure_threshold}
-    successThreshold: ${primary.liveness_probe.success_threshold}
-
+    enabled: ${primary_liveness_probe_enabled}
+    initialDelaySeconds: ${primary_liveness_probe_initial_delay_seconds}
+    timeoutSeconds: ${primary_liveness_probe_timeout_seconds}
+    failureThreshold: ${primary_liveness_probe_failure_threshold}
+    successThreshold: ${primary_liveness_probe_success_threshold}
   readinessProbe:
-    enabled: ${primary.readiness_probe.enabled}
-    initialDelaySeconds: ${primary.readiness_probe.initial_delay_seconds}
-    timeoutSeconds: ${primary.readiness_probe.timeout_seconds}
-    failureThreshold: ${primary.readiness_probe.failure_threshold}
-    successThreshold: ${primary.readiness_probe.success_threshold}
-
+    enabled: ${primary_readiness_probe_enabled}
+    initialDelaySeconds: ${primary_readiness_probe_initial_delay_seconds}
+    timeoutSeconds: ${primary_readiness_probe_timeout_seconds}
+    failureThreshold: ${primary_readiness_probe_failure_threshold}
+    successThreshold: ${primary_readiness_probe_success_threshold}
+limits:
+  type: ${limits_type}
+  default:
+    memory: ${limits_default_memory}
+    cpu: ${limits_default_cpu}
+  defaultRequest:
+    memory: ${limits_default_request_memory}
+    cpu: ${limits_default_request_cpu}
+  max:
+    memory: ${limits_max_memory}
+    cpu: ${limits_max_cpu}
+persistence:
+  enabled: ${persistence_enabled}
+  storageClass: ${persistence_storage_class}
+  size: ${persistence_size}
+primary:
+  podLabels:
+    sidecar.istio.io/inject: ${sidecar_istio_inject}
+metrics:
+  enabled: ${metrics_enabled}
+  collectors: ${metrics_collectors}
+  customMetrics: ${metrics_custom_metrics}
+  extraEnvVars: ${metrics_extra_env_vars}
+  customLivenessProbe: ${metrics_custom_liveness_probe}
+  customReadinessProbe: ${metrics_custom_readiness_probe}
+  customStartupProbe: ${metrics_custom_startup_probe}
+  service:
+    ports:
+      metrics: ${metrics_service_ports}
+    annotations:
+      prometheus.io/scrape: ${prometheus_scrape_enabled}
+      prometheus.io/port: ${prometheus_scrape_port}
+  serviceMonitor:
+    enabled: ${service_monitor_enabled}
+    namespace: ${service_monitor_namespace}
+    interval: ${service_monitor_interval}
+    scrapeTimeout: ${service_monitor_scrape_timeout}
 primary:
   networkPolicy:
-    enabled: ${primary.network_policy.enabled}
-    
-readReplicas:
-  networkPolicy:
-    enabled: ${read_replicas.network_policy.enabled}
-
-limits:
-  type: ${limits.type}
-  default:
-    memory: "${limits.default.memory}"
-    cpu: "${limits.default.cpu}"
-  defaultRequest:
-    memory: "${limits.default_request.memory}"
-    cpu: "${limits.default_request.cpu}"
-  max:
-    memory: "${limits.max.memory}"
-    cpu: "${limits.max.cpu}"
-
+    enabled: ${primary_network_policy_enabled}

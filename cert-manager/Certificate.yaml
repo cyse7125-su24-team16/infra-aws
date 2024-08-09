@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-centralhub-me
+  namespace: prometheus
+spec:
+  secretName: secret_name #Update with your secret_name.
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: grafana.centralhub.me
+  dnsNames:
+  - grafana.centralhub.me

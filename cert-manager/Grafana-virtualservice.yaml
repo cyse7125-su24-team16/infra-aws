@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: grafana-virtualservice
+spec:
+  hosts:
+  - "*.centralhub.me"
+  gateways:
+  - grafana-gateway 
+  tls:
+  - match:
+    - port: 443
+      sniHosts:
+      - grafana.centralhub.me
+    route:
+    - destination:
+        host: grafana.prometheus.svc.cluster.local
+        port:
+          number: 80

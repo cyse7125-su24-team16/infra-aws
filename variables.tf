@@ -765,3 +765,34 @@ variable "prometheus_chart" {
   type        = string
 
 }
+
+variable "policyname" {
+  description = "The name of the cert policy"
+  type        = string
+}
+
+variable "policy_description" {
+  description = "The cert policy description"
+  type        = string
+}
+
+variable "cert_manager_role_name" {
+  description = "cert manager role description"
+  type        = string
+}
+
+variable "cert_manager_assume_role_name" {
+   description = "cert manager role description"
+    type        = string
+  
+}
+
+variable "fluent_bit_service_account_name" {
+  description = "fluent_bit sa description"
+    type        = string
+}
+
+variable "fluent_bit_automount_secret" {
+  description = "fluent_bit_automount secret"
+    type        = string
+}
