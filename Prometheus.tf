@@ -7,5 +7,5 @@ resource "helm_release" "kube_prometheus_chart" {
   cleanup_on_fail  = true
   force_update     = false
   wait             = false
-  values           = [file("LKubernetes-Prometheus.yaml")]
+  values           = [file("Kubernetes-Prometheus.yaml")]
 }

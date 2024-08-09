@@ -43,7 +43,7 @@ resource "helm_release" "istiod_chart" {
   }
 
   values = [
-    file("LIstio.yaml")
+    file("Istio.yaml")
   ]
 
   depends_on = [
@@ -62,7 +62,7 @@ resource "helm_release" "istio_gateway_chart" {
   wait             = false
 
   values = [
-    file("LIstio.yaml")
+    file("Istio.yaml")
   ]
 
   depends_on = [
