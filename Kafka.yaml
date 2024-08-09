@@ -1,121 +1,126 @@
-# values.yaml
 provisioning:
   topics:
-    - name: ${topics_name}
-      replicationFactor: ${topics_replicationFactor}
-      partitions: ${topics_partitions}
+    - name: '${topic_name}'
+      replicationFactor: ${replication_factor}
+      partitions: ${partitions}
   enabled: ${provisioning_enabled}
-  numPartitions: ${provisioning_numPartitions}
-  replicationFactor: ${provisioning_replicationFactor}
-
-replicaCount: ${replicaCount}
-
+  numPartitions: ${num_partitions}
+  replicationFactor: ${replication_factor}
+  podLabels:
+    sidecar.istio.io/inject: '${istio_sidecar_inject}'
+ 
+replicaCount: ${replica_count}
+ 
 persistence:
   enabled: ${persistence_enabled}
-  storageClass: ${persistence_storageClass}
+  storageClass: "${storage_class}"
   size: ${persistence_size}
-
+ 
 logPersistence:
-  enabled: ${logPersistence_enabled}
-  storageClass: ${logPersistence_storageClass}
-  size: ${logPersistence_size}
-
+  enabled: ${log_persistence_enabled}
+  storageClass: "${log_storage_class}"
+  size: ${log_persistence_size}
+ 
 resources:
   requests:
-    memory: ${resources_requests_memory}
-    cpu: ${resources_requests_cpu}
+    memory: "${memory_request}"
+    cpu: ${cpu_request}
   limits:
-    memory: ${resources_limits_memory}
-    cpu: ${resources_limits_cpu}
-
+    memory: "${memory_limit}"
+    cpu: "${cpu_limit}"
+ 
 metrics:
   kafka:
-    enabled: ${metrics_kafka_enabled}
-
+    enabled: ${kafka_metrics_enabled}
+ 
 updateStrategy:
-  type: ${updateStrategy_type}
+  type: ${update_strategy_type}
   rollingUpdate:
-    maxUnavailable: ${updateStrategy_rollingUpdate_maxUnavailable}
-  minReadySeconds: ${updateStrategy_minReadySeconds}
-  progressDeadlineSeconds: ${updateStrategy_progressDeadlineSeconds}
-
+    maxUnavailable: ${max_unavailable}
+  minReadySeconds: ${min_ready_seconds}
+  progressDeadlineSeconds: ${progress_deadline_seconds}
+ 
 sasl:
   client:
     users:
-      - ${sasl_client_users}
-    passwords: ${sasl_client_passwords}
-
+      - ${sasl_user}
+    passwords: "${sasl_password}"
+ 
 limits:
-  type: ${limits_type}
+  type: ${limit_type}
   default:
-    memory: ${limits_default_memory}
-    cpu: ${limits_default_cpu}
+    memory: "${default_memory_limit}"
+    cpu: "${default_cpu_limit}"
   defaultRequest:
-    memory: ${limits_defaultRequest_memory}
-    cpu: ${limits_defaultRequest_cpu}
+    memory: "${default_memory_request}"
+    cpu: "${default_cpu_request}"
   max:
-    memory: ${limits_max_memory}
-    cpu: ${limits_max_cpu}
-
-autoScaling:
-  enabled: ${autoScaling_enabled}
-  minReplicas: ${autoScaling_minReplicas}
-  maxReplicas: ${autoScaling_maxReplicas}
-  targetCPUUtilizationPercentage: ${autoScaling_targetCPUUtilizationPercentage}
-
-hpa:
-  enabled: ${hpa_enabled}
-  minReplicas: ${hpa_minReplicas}
-  maxReplicas: ${hpa_maxReplicas}
-  targetCPU: ${hpa_targetCPU}
-
+    memory: "${max_memory_limit}"
+    cpu: "${max_cpu_limit}"
+ 
+controller:
+  autoscaling:
+    hpa:  
+      enabled: ${autoscaling_enabled}
+      minReplicas: ${min_replicas}
+      maxReplicas: ${max_replicas}
+      targetCPU: ${target_cpu}
+      targetMemory: ${target_memory}
+ 
 podDisruptionBudget:
-  enabled: ${podDisruptionBudget_enabled}
-  maxUnavailable: ${podDisruptionBudget_maxUnavailable}
-
+  enabled: ${pdb_enabled}
+  maxUnavailable: ${pdb_max_unavailable}
+ 
 affinity:
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
           matchExpressions:
-            - key: ${affinity_podAntiAffinity_requiredDuringSchedulingIgnoredDuringExecution_labelSelector_matchExpressions_key}
-              operator: ${affinity_podAntiAffinity_requiredDuringSchedulingIgnoredDuringExecution_labelSelector_matchExpressions_operator}
+            - key: app.kubernetes.io/name
+              operator: In
               values:
-                - ${affinity_podAntiAffinity_requiredDuringSchedulingIgnoredDuringExecution_labelSelector_matchExpressions_values}
-        topologyKey: ${affinity_podAntiAffinity_requiredDuringSchedulingIgnoredDuringExecution_topologyKey}
-
+                - ${app_name}
+        topologyKey: "${topology_key}"
+ 
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_key}
-          operator: ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_operator}
+        - key: "${node_selector_key}"
+          operator: In
           values:
-          - ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_values[0]}
-          - ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_values[1]}
-          - ${affinity_nodeAffinity_requiredDuringSchedulingIgnoredDuringExecution_nodeSelectorTerms_matchExpressions_values[2]}
-
+          - ${zone_1}
+          - ${zone_2}
+          - ${zone_3}
+ 
 nodeSelector:
-  "beta.kubernetes.io/os": ${nodeSelector_beta_kubernetes_io_os}
-
+  "beta.kubernetes.io/os": ${os_type}
+ 
 tolerations:
-  - key: ${tolerations_0_key}
-    operator: ${tolerations_0_operator}
-    effect: ${tolerations_0_effect}
-    tolerationSeconds: ${tolerations_0_tolerationSeconds}
-  - key: ${tolerations_1_key}
-    operator: ${tolerations_1_operator}
-    effect: ${tolerations_1_effect}
-    tolerationSeconds: ${tolerations_1_tolerationSeconds}
-
+  - key: "${toleration_key_1}"
+    operator: "${toleration_operator_1}"
+    effect: "${toleration_effect_1}"
+    tolerationSeconds: ${toleration_seconds_1}
+  - key: "${toleration_key_2}"
+    operator: "${toleration_operator_2}"
+    effect: "${toleration_effect_2}"
+    tolerationSeconds: ${toleration_seconds_2}
+ 
 metrics:
   jmx:
-    enabled: ${metrics_jmx_enabled}
-    kafkaJmxPort: ${metrics_jmx_kafkaJmxPort}
+    enabled: ${jmx_metrics_enabled}
+    kafkaJmxPort: ${kafka_jmx_port}
   service:
-    ports:
-      metrics: ${metrics_service_ports_metrics}
-    annotations:
-      prometheus.io/scrape: ${metrics_service_annotations_prometheus_io_scrape}
-      prometheus.io/port: ${metrics_service_annotations_prometheus_io_port}
-      prometheus.io/path: ${metrics_service_annotations_prometheus_io_path}
+      ports:
+        metrics: ${metrics_port}
+      annotations:
+        prometheus.io/scrape: "${prometheus_scrape}"
+        prometheus.io/port: "${prometheus_port}"
+        prometheus.io/path: "${prometheus_path}"
+ 
+serviceAccount:
+  create: ${service_account_create}
+  automountServiceAccountToken: ${automount_service_account_token}
+ 
+rbac:
+  create: ${rbac_create}

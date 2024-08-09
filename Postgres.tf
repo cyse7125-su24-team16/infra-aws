@@ -11,6 +11,4 @@ resource "helm_release" "postgresql" {
     module.eks,
     kubernetes_storage_class.ebs_sc,
   ]
-
-
 }

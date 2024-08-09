@@ -44,3 +44,6 @@ imagePullSecrets:
 secrets:
   myregistrykey:
     dockerconfigjson: ${secrets.myregistrykey.dockerconfigjson}
+
+podDisruptionBudget:
+  maxUnavailable: ${maxUnavailable}

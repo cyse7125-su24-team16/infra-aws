@@ -3,16 +3,17 @@ module "eks" {
   version = "~> 20.0"
 
   # EKS Cluster Configuration
-  cluster_name        = var.cluster_name
-  cluster_version     = var.cluster_version
-  authentication_mode = var.eks_authentication_mode
-  cluster_ip_family   = var.eks_ip_family
+  cluster_name                  = var.cluster_name
+  cluster_version               = var.cluster_version
+  authentication_mode           = var.eks_authentication_mode
+  cluster_ip_family             = var.eks_ip_family
+  create_cluster_security_group = false
 
   cluster_endpoint_public_access  = true
   cluster_endpoint_private_access = true
 
   # Observability
-  cluster_enabled_log_types = var.cluster_enabled_log_types
+  cluster_enabled_log_types = ["api", "audit", "controllerManager", "scheduler"]
 
   # Encryption
   cluster_encryption_config = {
@@ -45,8 +46,6 @@ module "eks" {
       most_recent              = true
     }
   }
-
-
 
   # Networking
   vpc_id                    = aws_vpc.VPC.id
@@ -105,12 +104,46 @@ module "eks" {
       ]
     }
   }
+
   # Cluster access entry to add the current caller identity as an administrator
   enable_cluster_creator_admin_permissions = true
+
+  # Additional Security Group Rules
+  node_security_group_additional_rules = {
+    ingress_15017 = {
+      description                   = var.EKS_ingress_15017_description
+      protocol                      = var.EKS_ingress_15017_protocol
+      from_port                     = var.EKS_ingress_15017_from_port
+      to_port                       = var.EKS_ingress_15017_to_port
+      type                          = var.EKS_ingress_15017_type
+      source_cluster_security_group = true
+    }
+    ingress_15012 = {
+      description                   = var.EKS_ingress_15012_description
+      protocol                      = var.EKS_ingress_15012_protocol
+      from_port                     = var.EKS_ingress_15012_from_port
+      to_port                       = var.EKS_ingress_15012_to_port
+      type                          = var.EKS_ingress_15012_type
+      source_cluster_security_group = true
+    }
+  }
+}
+
+data "aws_eks_cluster" "cluster" {
+  depends_on = [module.eks]
+  name       = var.cluster_name
 }
 
 data "aws_eks_cluster_auth" "cluster_auth" {
   name = var.cluster_name
+}
+
+data "aws_iam_openid_connect_provider" "oidc_provider" {
+  url = data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer
+}
+
+output "oidc_issuer_arn" {
+  value = data.aws_iam_openid_connect_provider.oidc_provider.arn
 }
 
 output "eks_cluster_id" {
@@ -129,6 +162,9 @@ output "eks_cluster_version" {
   value = module.eks.cluster_version
 }
 
-output "eks_cluster_Arn" {
+output "eks_cluster_arn" {
   value = module.eks.cluster_arn
+}
+output "fluent_bit_role_arn" {
+  value = aws_iam_role.fluent_bit.arn
 }

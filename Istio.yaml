@@ -1,20 +1,23 @@
-# values.yaml
 global:
   proxy:
     resources:
       limits:
-        cpu: ${proxy_cpu_limit}
-        memory: ${proxy_memory_limit}
+        cpu: ${cpu}
+        memory: ${memory_limit}
       requests:
-        cpu: ${proxy_cpu_request}
-        memory: ${proxy_memory_request}
+        cpu: ${cpu_request}
+        memory: ${memory_request}
   defaultPodDisruptionBudget:
-    enabled: ${defaultPodDisruptionBudget_enabled}
+    enabled: ${pod_disruption_budget_enabled}
+  logAsJson: ${log_as_json}
+  # logging:
+  #   level: ${logging_level}
+ 
 pilot:
-  autoscaleEnabled: ${pilot_autoscaleEnabled}
-  autoscaleMin: ${pilot_autoscaleMin}
-  autoscaleMax: ${pilot_autoscaleMax}
-  replicaCount: ${pilot_replicaCount}
+  autoscaleEnabled: ${pilot_autoscale_enabled}
+  autoscaleMin: ${pilot_autoscale_min}
+  autoscaleMax: ${pilot_autoscale_max}
+  replicaCount: ${pilot_replica_count}
   resources:
     requests:
       cpu: ${pilot_cpu_request}
@@ -22,15 +25,13 @@ pilot:
     limits:
       cpu: ${pilot_cpu_limit}
       memory: ${pilot_memory_limit}
+ 
 gateways:
   istio-ingressgateway:
-    autoscaleEnabled: ${ingressgateway_autoscaleEnabled}
-    autoscaleMin: ${ingressgateway_autoscaleMin}
-    autoscaleMax: ${ingressgateway_autoscaleMax}
     serviceAnnotations:
-      service.beta.kubernetes.io/aws-load-balancer-type: ${ingressgateway_lb_type}
-      service.beta.kubernetes.io/aws-load-balancer-scheme: ${ingressgateway_lb_scheme}
-      service.beta.kubernetes.io/aws-load-balancer-attributes: ${ingressgateway_lb_attributes}
+      service.beta.kubernetes.io/aws-load-balancer-type: ${aws_load_balancer_type}
+      service.beta.kubernetes.io/aws-load-balancer-scheme: ${aws_load_balancer_scheme}
+      service.beta.kubernetes.io/aws-load-balancer-attributes: ${aws_load_balancer_attributes}
     resources:
       limits:
         cpu: ${ingressgateway_cpu_limit}
@@ -38,3 +39,18 @@ gateways:
       requests:
         cpu: ${ingressgateway_cpu_request}
         memory: ${ingressgateway_memory_request}
+    rbac:
+      enabled: ${ingressgateway_rbac_enabled}
+    serviceAccount:
+      create: ${ingressgateway_service_account_create}
+      name: ${ingressgateway_service_account_name}
+ 
+    autoscaling:
+      enabled: ${ingressgateway_autoscaling_enabled}
+      minReplicas: ${ingressgateway_autoscaling_min_replicas}
+      maxReplicas: ${ingressgateway_autoscaling_max_replicas}
+      targetCPUUtilizationPercentage: ${ingressgateway_target_cpu_utilization_percentage}
+ 
+meshConfig:
+  defaultConfig:
+    holdApplicationUntilProxyStarts: ${hold_application_until_proxy_starts}

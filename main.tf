@@ -106,6 +106,20 @@ resource "aws_security_group" "EKS_Security_Group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  egress {
+    from_port   = var.EKS_ingress_15012_from_port
+    to_port     = var.EKS_ingress_15012_to_port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = var.EKS_ingress_15017_from_port
+    to_port     = var.EKS_ingress_15017_to_port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     Name = "EKS-Security-Group"
   }
